@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { AppBar, Toolbar, Typography, Button } from "@mui/material";
-import ModeSwitch from "./ModeSwitch";
+import ModeSwitch from "@/components/ModeSwitch";
 
 export default function Navigation() {
     return (
