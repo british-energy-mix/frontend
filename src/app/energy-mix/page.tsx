@@ -26,9 +26,6 @@ export default function EnergyMix() {
         isError,
     } = useGetEnergyMix();
 
-    useEffect(() => { console.log("DEBUG: reloaded: data: ", data, " isError: ", isError) }, [data])
-    useEffect(() => { console.log("DEBUG: Got an error") }, [isError])
-
     const displayAlert = (message: string, severity: OverridableStringUnion<AlertColor, AlertPropsColorOverrides> | undefined) => <Alert
         sx={{
             alignSelf: "center"
@@ -51,7 +48,11 @@ export default function EnergyMix() {
                 },
             }}
         >
-            {isLoading ? displayAlert("Ładowanie", "info")
+            {isLoading ?
+                [1, 2, 3].map(el => <EnergyMixCard
+                    className='d-flex flex-1'
+                    key={el} />
+                )
                 :
                 isError || data?.data?.mixes?.length == 0 ?
                     displayAlert("Nie udało się pobrać danych z serwera", "error")

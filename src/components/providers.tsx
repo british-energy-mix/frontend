@@ -1,12 +1,12 @@
 "use client";
 
-import { ThemeProvider, CssBaseline } from "@mui/material";
+import { CssBaseline } from "@mui/material";
+import { ThemeProvider } from "@mui/material/styles";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { useState } from "react";
 
 import theme from "@/theme";
 import { AppRouterCacheProvider } from "@mui/material-nextjs/v16-appRouter"; // must comply with the version of nextjs
-import ModeSwitch from "./ModeSwitch";
 
 export default function Providers({
     children,

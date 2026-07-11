@@ -4,7 +4,7 @@ import { useGetOptimalWindow } from "@/api/energy-mix-controller/energy-mix-cont
 import EnergyUsageWindowView from "@/components/EnergyUsageWindowView";
 import { Alert, AlertColor, AlertPropsColorOverrides, Box, Card, CardContent, Grid, Slider, Stack, Typography } from "@mui/material";
 import { OverridableStringUnion } from "@mui/types";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 
 
@@ -18,6 +18,10 @@ export default function CarLoading() {
         isLoading,
         isError
     } = useGetOptimalWindow({ window: windowLength })
+
+    useEffect(() => {
+
+    }, [isError])
 
     const displayAlert = (message: string, severity: OverridableStringUnion<AlertColor, AlertPropsColorOverrides> | undefined) => <Alert
         sx={{
@@ -53,11 +57,9 @@ export default function CarLoading() {
                 >
 
                     <Grid size={3}>
-                        <Typography sx={(theme) => ({
-                            color: isLoading ?
-                                theme.palette.text.disabled
-                                : theme.palette.text.primary,
-                        })}>
+                        <Typography sx={{
+                            color: "text.primary",
+                        }}>
                             Liczba godzin ładowania
                         </Typography>
                     </Grid>
@@ -71,14 +73,6 @@ export default function CarLoading() {
                             onChangeCommitted={(_, newValue) => setWindowLength(newValue)}
                             valueLabelDisplay="on"
                         />
-                    </Grid>
-
-                    <Grid size={1}>
-                        <Typography sx={(theme) => ({
-                            color: theme.palette.text.disabled
-                        })}>
-                            {sliderWindowLength}
-                        </Typography>
                     </Grid>
 
                 </Grid>

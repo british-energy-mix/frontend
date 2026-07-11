@@ -34,7 +34,30 @@ const theme = createTheme({
                 }
             },
         },
-        dark: true
+        dark: {
+            palette: {
+                // text: {
+                //     primary: "#7892B6",
+                //     // secondary: "#1F2937"
+                // }
+
+                primary: {
+                    main: "#3fdc2d",
+                },
+                secondary: {
+                    main: "#918edf",
+                },
+                background: {
+                    default: "#121212",
+                    paper: "#1E1E1E",
+                },
+                text: {
+                    primary: "#5d87c2",
+                    secondary: "#606e81",
+                    disabled: "#6B7280",
+                },
+            }
+        }
     },
     cssVariables: {
         colorSchemeSelector: 'class',
