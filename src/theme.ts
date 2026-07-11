@@ -10,28 +10,37 @@ const roboto = Roboto({
 });
 
 const theme = createTheme({
-    colorSchemes: { light: true, dark: true },
+    colorSchemes: {
+        light: {
+            palette: {
+                // mode: "light",
+
+                primary: {
+                    main: "#3fdc2d",
+                },
+
+                secondary: {
+                    main: "#918edf",
+                },
+
+                background: {
+                    default: "#F5F5F5",
+                    paper: "#FFFFFF",
+                },
+                text: {
+                    primary: "#1F2937",
+                    secondary: "#6B7280",
+                    disabled: "#9CA3AF",
+                }
+            },
+        },
+        dark: true
+    },
     cssVariables: {
         colorSchemeSelector: 'class',
     },
     typography: {
         fontFamily: roboto.style.fontFamily,
-    },
-    palette: {
-        mode: "light",
-
-        primary: {
-            main: "#3fdc2d",
-        },
-
-        secondary: {
-            main: "#918edf",
-        },
-
-        background: {
-            default: "#F5F5F5",
-            paper: "#FFFFFF",
-        },
     },
 });
 
