@@ -6,9 +6,11 @@ import ModeSwitch from "@/components/ModeSwitch";
 
 export default function Navigation() {
     return (
-        <AppBar position="static">
+        <AppBar position="static" sx={{
+            zIndex: 1
+        }}>
             <Toolbar>
-                <Typography variant="h6" sx={{ flexGrow: 1 }}>
+                <Typography variant="h5" sx={{ flexGrow: 1 }}>
                     British Energy Mix
                 </Typography>
 

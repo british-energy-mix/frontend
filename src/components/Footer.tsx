@@ -5,7 +5,7 @@ export default function Footer() {
         <Box
             component="footer"
             sx={{
-                mt: "auto",
+                // mt: "auto",
                 py: 2,
                 bgcolor: "background.paper",
                 borderTop: 1,
@@ -18,7 +18,7 @@ export default function Footer() {
                     color="text.secondary"
                     align="center"
                 >
-                    © {new Date().getFullYear()} Energy Mix Dashboard
+                    {new Date().getFullYear()} Energy Mix Dashboard
                 </Typography>
             </Container>
         </Box>

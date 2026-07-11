@@ -19,6 +19,13 @@ import type {
   UseQueryResult
 } from '@tanstack/react-query';
 
+import axios from 'axios';
+import type {
+  AxiosError,
+  AxiosRequestConfig,
+  AxiosResponse
+} from 'axios';
+
 import type {
   EnergyMixResponse,
   EnergyUsageWindowModel,
@@ -29,50 +36,17 @@ import type {
 
 
 
-export type getOptimalWindowResponse200 = {
-  data: EnergyUsageWindowModel
-  status: 200
-}
+export const getOptimalWindow = (
+    params: GetOptimalWindowParams, options?: AxiosRequestConfig
+ ): Promise<AxiosResponse<EnergyUsageWindowModel>> => {
     
-export type getOptimalWindowResponseSuccess = (getOptimalWindowResponse200) & {
-  headers: Headers;
-};
-;
-
-export type getOptimalWindowResponse = (getOptimalWindowResponseSuccess)
-
-export const getGetOptimalWindowUrl = (params: GetOptimalWindowParams,) => {
-  const normalizedParams = new URLSearchParams();
-
-  Object.entries(params || {}).forEach(([key, value]) => {
     
-    if (value !== undefined) {
-      normalizedParams.append(key, value === null ? 'null' : value.toString())
-    }
-  });
-
-  const stringifiedParams = normalizedParams.toString();
-
-  return stringifiedParams.length > 0 ? `http://localhost:8080/api/optimal-window?${stringifiedParams}` : `http://localhost:8080/api/optimal-window`
-}
-
-export const getOptimalWindow = async (params: GetOptimalWindowParams, options?: RequestInit): Promise<getOptimalWindowResponse> => {
-  
-  const res = await fetch(getGetOptimalWindowUrl(params),
-  {      
+    return axios.get(
+      `http://localhost:8080/api/optimal-window`,{
     ...options,
-    method: 'GET'
-    
-    
+        params: {...params, ...options?.params},}
+    );
   }
-)
-
-  const body = [204, 205, 304].includes(res.status) ? null : await res.text();
-  
-  const data: getOptimalWindowResponse['data'] = body ? JSON.parse(body) : {}
-  return { data, status: res.status, headers: res.headers } as getOptimalWindowResponse
-}
-
 
 
 
@@ -84,16 +58,16 @@ export const getGetOptimalWindowQueryKey = (params?: GetOptimalWindowParams,) =>
     }
 
     
-export const getGetOptimalWindowQueryOptions = <TData = Awaited<ReturnType<typeof getOptimalWindow>>, TError = unknown>(params: GetOptimalWindowParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof getOptimalWindow>>, TError, TData>>, fetch?: RequestInit}
+export const getGetOptimalWindowQueryOptions = <TData = Awaited<ReturnType<typeof getOptimalWindow>>, TError = AxiosError<unknown>>(params: GetOptimalWindowParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof getOptimalWindow>>, TError, TData>>, axios?: AxiosRequestConfig}
 ) => {
 
-const {query: queryOptions, fetch: fetchOptions} = options ?? {};
+const {query: queryOptions, axios: axiosOptions} = options ?? {};
 
   const queryKey =  queryOptions?.queryKey ?? getGetOptimalWindowQueryKey(params);
 
   
 
-    const queryFn: QueryFunction<Awaited<ReturnType<typeof getOptimalWindow>>> = ({ signal }) => getOptimalWindow(params, { signal, ...fetchOptions });
+    const queryFn: QueryFunction<Awaited<ReturnType<typeof getOptimalWindow>>> = ({ signal }) => getOptimalWindow(params, { signal, ...axiosOptions });
 
       
 
@@ -103,36 +77,36 @@ const {query: queryOptions, fetch: fetchOptions} = options ?? {};
 }
 
 export type GetOptimalWindowQueryResult = NonNullable<Awaited<ReturnType<typeof getOptimalWindow>>>
-export type GetOptimalWindowQueryError = unknown
+export type GetOptimalWindowQueryError = AxiosError<unknown>
 
 
-export function useGetOptimalWindow<TData = Awaited<ReturnType<typeof getOptimalWindow>>, TError = unknown>(
+export function useGetOptimalWindow<TData = Awaited<ReturnType<typeof getOptimalWindow>>, TError = AxiosError<unknown>>(
  params: GetOptimalWindowParams, options: { query:Partial<UseQueryOptions<Awaited<ReturnType<typeof getOptimalWindow>>, TError, TData>> & Pick<
         DefinedInitialDataOptions<
           Awaited<ReturnType<typeof getOptimalWindow>>,
           TError,
           Awaited<ReturnType<typeof getOptimalWindow>>
         > , 'initialData'
-      >, fetch?: RequestInit}
+      >, axios?: AxiosRequestConfig}
  , queryClient?: QueryClient
   ):  DefinedUseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
-export function useGetOptimalWindow<TData = Awaited<ReturnType<typeof getOptimalWindow>>, TError = unknown>(
+export function useGetOptimalWindow<TData = Awaited<ReturnType<typeof getOptimalWindow>>, TError = AxiosError<unknown>>(
  params: GetOptimalWindowParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof getOptimalWindow>>, TError, TData>> & Pick<
         UndefinedInitialDataOptions<
           Awaited<ReturnType<typeof getOptimalWindow>>,
           TError,
           Awaited<ReturnType<typeof getOptimalWindow>>
         > , 'initialData'
-      >, fetch?: RequestInit}
+      >, axios?: AxiosRequestConfig}
  , queryClient?: QueryClient
   ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
-export function useGetOptimalWindow<TData = Awaited<ReturnType<typeof getOptimalWindow>>, TError = unknown>(
- params: GetOptimalWindowParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof getOptimalWindow>>, TError, TData>>, fetch?: RequestInit}
+export function useGetOptimalWindow<TData = Awaited<ReturnType<typeof getOptimalWindow>>, TError = AxiosError<unknown>>(
+ params: GetOptimalWindowParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof getOptimalWindow>>, TError, TData>>, axios?: AxiosRequestConfig}
  , queryClient?: QueryClient
   ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
 
-export function useGetOptimalWindow<TData = Awaited<ReturnType<typeof getOptimalWindow>>, TError = unknown>(
- params: GetOptimalWindowParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof getOptimalWindow>>, TError, TData>>, fetch?: RequestInit}
+export function useGetOptimalWindow<TData = Awaited<ReturnType<typeof getOptimalWindow>>, TError = AxiosError<unknown>>(
+ params: GetOptimalWindowParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof getOptimalWindow>>, TError, TData>>, axios?: AxiosRequestConfig}
  , queryClient?: QueryClient 
  ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> } {
 
@@ -148,43 +122,15 @@ export function useGetOptimalWindow<TData = Awaited<ReturnType<typeof getOptimal
 
 
 
-export type getEnergyMixResponse200 = {
-  data: EnergyMixResponse
-  status: 200
-}
-    
-export type getEnergyMixResponseSuccess = (getEnergyMixResponse200) & {
-  headers: Headers;
-};
-;
-
-export type getEnergyMixResponse = (getEnergyMixResponseSuccess)
-
-export const getGetEnergyMixUrl = () => {
-
-
-  
-
-  return `http://localhost:8080/api/energy-mix`
-}
-
-export const getEnergyMix = async ( options?: RequestInit): Promise<getEnergyMixResponse> => {
-  
-  const res = await fetch(getGetEnergyMixUrl(),
-  {      
-    ...options,
-    method: 'GET'
+export const getEnergyMix = (
+     options?: AxiosRequestConfig
+ ): Promise<AxiosResponse<EnergyMixResponse>> => {
     
     
+    return axios.get(
+      `http://localhost:8080/api/energy-mix`,options
+    );
   }
-)
-
-  const body = [204, 205, 304].includes(res.status) ? null : await res.text();
-  
-  const data: getEnergyMixResponse['data'] = body ? JSON.parse(body) : {}
-  return { data, status: res.status, headers: res.headers } as getEnergyMixResponse
-}
-
 
 
 
@@ -196,16 +142,16 @@ export const getGetEnergyMixQueryKey = () => {
     }
 
     
-export const getGetEnergyMixQueryOptions = <TData = Awaited<ReturnType<typeof getEnergyMix>>, TError = unknown>( options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof getEnergyMix>>, TError, TData>>, fetch?: RequestInit}
+export const getGetEnergyMixQueryOptions = <TData = Awaited<ReturnType<typeof getEnergyMix>>, TError = AxiosError<unknown>>( options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof getEnergyMix>>, TError, TData>>, axios?: AxiosRequestConfig}
 ) => {
 
-const {query: queryOptions, fetch: fetchOptions} = options ?? {};
+const {query: queryOptions, axios: axiosOptions} = options ?? {};
 
   const queryKey =  queryOptions?.queryKey ?? getGetEnergyMixQueryKey();
 
   
 
-    const queryFn: QueryFunction<Awaited<ReturnType<typeof getEnergyMix>>> = ({ signal }) => getEnergyMix({ signal, ...fetchOptions });
+    const queryFn: QueryFunction<Awaited<ReturnType<typeof getEnergyMix>>> = ({ signal }) => getEnergyMix({ signal, ...axiosOptions });
 
       
 
@@ -215,36 +161,36 @@ const {query: queryOptions, fetch: fetchOptions} = options ?? {};
 }
 
 export type GetEnergyMixQueryResult = NonNullable<Awaited<ReturnType<typeof getEnergyMix>>>
-export type GetEnergyMixQueryError = unknown
+export type GetEnergyMixQueryError = AxiosError<unknown>
 
 
-export function useGetEnergyMix<TData = Awaited<ReturnType<typeof getEnergyMix>>, TError = unknown>(
+export function useGetEnergyMix<TData = Awaited<ReturnType<typeof getEnergyMix>>, TError = AxiosError<unknown>>(
   options: { query:Partial<UseQueryOptions<Awaited<ReturnType<typeof getEnergyMix>>, TError, TData>> & Pick<
         DefinedInitialDataOptions<
           Awaited<ReturnType<typeof getEnergyMix>>,
           TError,
           Awaited<ReturnType<typeof getEnergyMix>>
         > , 'initialData'
-      >, fetch?: RequestInit}
+      >, axios?: AxiosRequestConfig}
  , queryClient?: QueryClient
   ):  DefinedUseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
-export function useGetEnergyMix<TData = Awaited<ReturnType<typeof getEnergyMix>>, TError = unknown>(
+export function useGetEnergyMix<TData = Awaited<ReturnType<typeof getEnergyMix>>, TError = AxiosError<unknown>>(
   options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof getEnergyMix>>, TError, TData>> & Pick<
         UndefinedInitialDataOptions<
           Awaited<ReturnType<typeof getEnergyMix>>,
           TError,
           Awaited<ReturnType<typeof getEnergyMix>>
         > , 'initialData'
-      >, fetch?: RequestInit}
+      >, axios?: AxiosRequestConfig}
  , queryClient?: QueryClient
   ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
-export function useGetEnergyMix<TData = Awaited<ReturnType<typeof getEnergyMix>>, TError = unknown>(
-  options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof getEnergyMix>>, TError, TData>>, fetch?: RequestInit}
+export function useGetEnergyMix<TData = Awaited<ReturnType<typeof getEnergyMix>>, TError = AxiosError<unknown>>(
+  options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof getEnergyMix>>, TError, TData>>, axios?: AxiosRequestConfig}
  , queryClient?: QueryClient
   ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
 
-export function useGetEnergyMix<TData = Awaited<ReturnType<typeof getEnergyMix>>, TError = unknown>(
-  options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof getEnergyMix>>, TError, TData>>, fetch?: RequestInit}
+export function useGetEnergyMix<TData = Awaited<ReturnType<typeof getEnergyMix>>, TError = AxiosError<unknown>>(
+  options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof getEnergyMix>>, TError, TData>>, axios?: AxiosRequestConfig}
  , queryClient?: QueryClient 
  ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> } {
 

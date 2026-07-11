@@ -12,7 +12,7 @@ export default defineConfig({
             mode: "tags-split",
             target: "src/api/generated.ts",
             client: "react-query",
-            httpClient: "fetch",
+            httpClient: "axios",
             baseUrl: process.env.ENERGY_MIX_API_URL
         },
     },
