@@ -67,3 +67,6 @@ src/
 Endpoints are documented:
 - through OpenAPI: at path ``/v3/api-docs``
 - through Swagger: at path ``/swagger-ui/index.html``
+
+## Deployment
+Project is deployed on render.com and is available at [https://frontend-mu1e.onrender.com](https://frontend-mu1e.onrender.com)
