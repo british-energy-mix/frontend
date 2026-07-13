@@ -1,44 +1,69 @@
+# British Energy Mix application
+
+The utility for visualization of current British
+energy mix and finding an optimal window for
+an extensive energy usage with respect to nature.
+
+## Project Architecture
+The project consists of:
+
+- Frontend application
+- Spring Boot backend
+
+Furthermore, we use [external API](https://carbon-intensity.github.io/api-definitions)
+for data about current British energy mix.
+
+## Technologies
+
+- Next.js
+- TypeScript
+- React
+- TanstackQuery with ReactQuery
+- Orval with Axios
+- Material UI
+
+## Installation
+
 ```shell
-openapi-generator-cli generate \
--i http://localhost:8080/v3/api-docs \
--g typescript-fetch \
--o src/api/generated
+npm install
 ```
 
+## Development
 
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
-
-## Getting Started
-
-First, run the development server:
-
-```bash
+```shell
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Run
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```shell
+npm install && npm run build
+npm start
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Environment variables
 
-## Learn More
+In the file e.g. ``.env.local``
 
-To learn more about Next.js, take a look at the following resources:
+```dotenv
+ENERGY_MIX_API_URL=http://localhost:8080
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Architecture
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+```txt
+src/
+├── app/
+│   ├── page.tsx
+│   └── layout.tsx
+│
+├── components/
+|
+└── api/
+    └── generated/
+```
 
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## Backend API
+Endpoints are documented:
+- through OpenAPI: at path ``/v3/api-docs``
+- through Swagger: at path ``/swagger-ui/index.html``
